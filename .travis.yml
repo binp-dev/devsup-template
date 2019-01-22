@@ -2,11 +2,12 @@ language: cpp
 
 os: linux
 dist: xenial
-sudo: required
 compiler: gcc
 addons:
   apt:
     packages:
+      - perl
+      - libncurses-dev
       - libreadline-dev
 
 before_script:
@@ -26,4 +27,6 @@ script:
   export EPICS_CA_AUTO_ADDR_LIST=NO &&
   export EPICS_CA_ADDR_LIST=127.255.255.255 &&
   python3 script/build.py &&
-  python3 script/test.py
+  caget SCOPE
+  caput SCOPE 42
+  caget SCOPE
