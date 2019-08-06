@@ -1,4 +1,4 @@
-#!../../bin/linux-x86_64/lxi
+#!../../bin/linux-arm/lxi
 
 ## You may have to change lxi to something else
 ## everywhere it appears in this file
