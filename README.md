@@ -5,7 +5,7 @@ EPICS Device Support template with Rust bindings
 [![Travis CI][travis_badge]][travis]
 [![License][license_badge]][license]
 
-[travis_badge]: https://api.travis-ci.org/binp-automation/devsup-template.svg
+[travis_badge]: https://api.travis-ci.org/binp-automation/devsup-template.svg?branch=master
 [license_badge]: https://img.shields.io/github/license/binp-automation/devsup-template.svg
 
 [travis]: https://travis-ci.org/binp-automation/devsup-template
