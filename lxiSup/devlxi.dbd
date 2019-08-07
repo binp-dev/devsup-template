@@ -1,1 +1,1 @@
-device (ao, INST_IO, scope, "myScope")
+device (waveform, INST_IO, rec_waveform, "devsup")

@@ -3,61 +3,61 @@
 #include <devSup.h>
 #include <recGbl.h>
 #include <alarm.h>
-#include <aoRecord.h>
+
+#include <waveformRecord.h>
+
 #include <epicsExport.h>
 
-long report() {
-    printf("scope.report\n");
-    return 0;
-}
+#include <iocsh.h>
 
-long init() {
-    printf("scope.init\n");
-    return 0;
-}
-
-long init_record(aoRecord *record) {
-    printf("scope.init_record %s\n", record->name);
-    return 0;
-}
-
-long get_ioint_info() {
-    printf("scope.get_ioint_info\n");
-    return 0;
-}
-
-long read_or_write(aoRecord *record) {
-    printf("scope.read_or_write %s\n", record->name);
-    return 0;
-}
-
-long special_linconv(aoRecord *record, int after) {
-    printf("scope.special_linconv %s\n", record->name);
-    if (after) {
-        record->eslo = (record->eguf - record->egul)/0xFFFF;
-        record->eoff = record->egul;
+void print_data(struct waveformRecord *record) {
+    printf("nelm: %d\n", record->nelm);
+    printf("nord: %d\n", record->nord);
+    printf("bptr: [");
+    int i = 0;
+    for (i = 0; i < record->nord; ++i) {
+        printf(" %.2lf, ", ((double*)record->bptr)[i]);
     }
+    printf(" ]\n");
+}
+
+void init(void) {
+    printf("init\n");
+}
+
+long init_record     (struct waveformRecord *record) {
+    printf("init_record: %s\n", record->name);
+    print_data(record);
+    return 0;
+}
+long get_ioint_info  (int cmd, struct waveformRecord *record, IOSCANPVT *ppvt) {
+    printf("get_ioint_info: %s\n", record->name);
+    return 0;
+}
+long read_waveform   (struct waveformRecord *record) {
+    printf("read_waveform: %s\n", record->name);
+    print_data(record);
     return 0;
 }
 
-struct Scope {
+struct Waveform {
     long number;
     DEVSUPFUN report;
     DEVSUPFUN init;
     DEVSUPFUN init_record;
     DEVSUPFUN get_ioint_info;
-    DEVSUPFUN read_or_write;
-    DEVSUPFUN special_linconv;
+    DEVSUPFUN read_waveform;
 };
 
-struct Scope scope = {
-    6,
-    report,
-    init,
+struct Waveform rec_waveform = {
+    5,
+    NULL,
+    NULL,
     init_record,
     get_ioint_info,
-    read_or_write,
-    special_linconv,
+    read_waveform
 };
 
-epicsExportAddress(dset, scope);
+epicsExportAddress(dset, rec_waveform);
+
+epicsExportRegistrar(init);

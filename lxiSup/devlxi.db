@@ -1,4 +1,6 @@
-record(ao, "SCOPE")
+record(waveform, "WAVEFORM")
 {
-    field(DTYP, "myScope")
+    field(DTYP, "devsup")
+    field(NELM, 4096)
+    field(FTVL, "DOUBLE")
 }
