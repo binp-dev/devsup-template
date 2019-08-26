@@ -13,12 +13,14 @@
 void print_data(struct waveformRecord *record) {
     printf("nelm: %d\n", record->nelm);
     printf("nord: %d\n", record->nord);
+    /*
     printf("bptr: [");
     int i = 0;
     for (i = 0; i < record->nord; ++i) {
         printf(" %.2lf, ", ((double*)record->bptr)[i]);
     }
     printf(" ]\n");
+    */
 }
 
 void init(void) {
